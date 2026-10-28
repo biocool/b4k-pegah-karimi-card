@@ -83,8 +83,8 @@ qr_code.add_data(CARD_URL)
 qr_code.make(fit=True)
 qr_code.make_image(fill_color=NAVY, back_color="white").convert("RGBA").save(ASSETS / "card-qr.png")
 
-logo = Image.open(ASSETS / "favicon.png").convert("RGBA")
-logo = logo.resize((128, 128), Image.Resampling.NEAREST)
+logo = Image.open(ASSETS / "b4k-logo.png").convert("RGBA")
+logo = logo.resize((128, 128), Image.Resampling.LANCZOS)
 image.alpha_composite(logo, ((WIDTH - 128) // 2, 146))
 
 centered(draw, 304, "SCAN TO CONNECT", font(40, True), GREEN, spacing=8)
