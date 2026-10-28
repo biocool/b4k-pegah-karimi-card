@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="B4K color blocks">
+  <rect width="64" height="64" rx="14" fill="#ffffff"/>
+  <path d="M8 10h22v20H8z" rx="3" fill="#E72840"/>
+  <path d="M34 10h22v20H34z" rx="3" fill="#01A851"/>
+  <path d="M8 34h22v20H8z" rx="3" fill="#198DC4"/>
+  <path d="M34 34h22v20H34z" rx="3" fill="#F7C332"/>
+  <circle cx="14" cy="10" r="3" fill="#E72840"/>
+  <circle cx="24" cy="10" r="3" fill="#E72840"/>
+  <circle cx="40" cy="10" r="3" fill="#01A851"/>
+  <circle cx="50" cy="10" r="3" fill="#01A851"/>
+  <circle cx="14" cy="34" r="3" fill="#198DC4"/>
+  <circle cx="24" cy="34" r="3" fill="#198DC4"/>
+  <circle cx="40" cy="34" r="3" fill="#F7C332"/>
+  <circle cx="50" cy="34" r="3" fill="#F7C332"/>
+</svg>
