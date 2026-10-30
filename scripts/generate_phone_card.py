@@ -1,7 +1,6 @@
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
-import qrcode
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -74,18 +73,27 @@ draw.rectangle((780, 65, 1020, 105), fill=YELLOW)
 image = Image.alpha_composite(image, card)
 draw = ImageDraw.Draw(image)
 
-qr_code = qrcode.QRCode(
-    error_correction=qrcode.constants.ERROR_CORRECT_M,
-    box_size=24,
-    border=4,
-)
-qr_code.add_data(CARD_URL)
-qr_code.make(fit=True)
-qr_code.make_image(fill_color=NAVY, back_color="white").convert("RGBA").save(ASSETS / "card-qr.png")
-
 logo = Image.open(ASSETS / "b4k-logo.png").convert("RGBA")
 logo = logo.resize((128, 128), Image.Resampling.LANCZOS)
 image.alpha_composite(logo, ((WIDTH - 128) // 2, 146))
+
+# Pegah portrait badge. Keep it outside the QR region so scan reliability is unchanged.
+portrait = Image.open(ASSETS / "dr-pegah-karimi.png").convert("RGB")
+portrait = ImageOps.fit(
+    portrait,
+    (154, 154),
+    method=Image.Resampling.LANCZOS,
+    bleed=0.16,
+    centering=(0.5, 0.18),
+).convert("RGBA")
+portrait_mask = Image.new("L", portrait.size, 0)
+ImageDraw.Draw(portrait_mask).ellipse((0, 0, 153, 153), fill=255)
+portrait.putalpha(portrait_mask)
+portrait_badge = Image.new("RGBA", (174, 174), (0, 0, 0, 0))
+badge_draw = ImageDraw.Draw(portrait_badge)
+badge_draw.ellipse((0, 0, 173, 173), fill="white", outline=YELLOW, width=8)
+portrait_badge.alpha_composite(portrait, (10, 10))
+image.alpha_composite(portrait_badge, (818, 128))
 
 centered(draw, 304, "SCAN TO CONNECT", font(40, True), GREEN, spacing=8)
 centered(draw, 382, "Dr. Pegah", font(72, True), CHARCOAL)
