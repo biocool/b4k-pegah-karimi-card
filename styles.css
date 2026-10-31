@@ -99,6 +99,25 @@ button {
   box-shadow: var(--shadow);
 }
 
+.install-app:not([hidden]) {
+  grid-column: 1 / -1;
+}
+
+.install-help {
+  margin: -3px 26px 18px;
+  color: #667085;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+@media (display-mode: standalone) {
+  .install-help,
+  #install-app {
+    display: none !important;
+  }
+}
+
 .motion-ready .card {
   animation: card-in 910ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }

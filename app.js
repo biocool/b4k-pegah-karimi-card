@@ -18,6 +18,7 @@ const qrImage = document.querySelector("#qr-image");
 const qrLoader = document.querySelector("#qr-loader");
 let toastTimer;
 let currentCardUrl = "";
+let deferredInstallPrompt;
 
 function showToast(message) {
   window.clearTimeout(toastTimer);
@@ -149,3 +150,25 @@ document.querySelector("#download-qr").addEventListener("click", async () => {
     showToast("Phone card download is unavailable in this browser");
   }
 });
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  document.querySelector("#install-app").hidden = false;
+  document.querySelector("#install-help").textContent = "Install this card as an app for one-tap access.";
+});
+
+document.querySelector("#install-app").addEventListener("click", async () => {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  const result = await deferredInstallPrompt.userChoice;
+  if (result.outcome === "accepted") showToast("Card added to your device");
+  deferredInstallPrompt = null;
+  document.querySelector("#install-app").hidden = true;
+});
+
+window.addEventListener("appinstalled", () => showToast("Bricks 4 Kidz card installed"));
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js"));
+}
