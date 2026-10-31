@@ -154,18 +154,33 @@ document.querySelector("#download-qr").addEventListener("click", async () => {
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   deferredInstallPrompt = event;
-  document.querySelector("#install-app").hidden = false;
-  document.querySelector("#install-help").textContent = "Install this card as an app for one-tap access.";
+  document.querySelector("#install-help").textContent = "Tap Add to Home Screen for one-tap access.";
 });
 
 document.querySelector("#install-app").addEventListener("click", async () => {
-  if (!deferredInstallPrompt) return;
-  deferredInstallPrompt.prompt();
-  const result = await deferredInstallPrompt.userChoice;
-  if (result.outcome === "accepted") showToast("Card added to your device");
-  deferredInstallPrompt = null;
-  document.querySelector("#install-app").hidden = true;
+  if (deferredInstallPrompt) {
+    deferredInstallPrompt.prompt();
+    const result = await deferredInstallPrompt.userChoice;
+    if (result.outcome === "accepted") showToast("Card added to your device");
+    deferredInstallPrompt = null;
+    return;
+  }
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  document.querySelector("#install-steps").innerHTML = isIOS
+    ? "<li>Tap the browser <strong>Share</strong> button.</li><li>Choose <strong>Add to Home Screen</strong>.</li><li>Tap <strong>Add</strong>.</li>"
+    : "<li>Open the browser menu.</li><li>Choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li><li>Confirm the installation.</li>";
+  document.querySelector("#install-modal").hidden = false;
+  document.body.style.overflow = "hidden";
 });
+
+function closeInstallGuide() {
+  document.querySelector("#install-modal").hidden = true;
+  document.body.style.overflow = "";
+}
+
+document.querySelector(".install-close").addEventListener("click", closeInstallGuide);
+document.querySelector(".install-backdrop").addEventListener("click", closeInstallGuide);
+document.querySelector(".install-done").addEventListener("click", closeInstallGuide);
 
 window.addEventListener("appinstalled", () => showToast("Bricks 4 Kidz card installed"));
 

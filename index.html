@@ -151,7 +151,7 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h3v3h-3zM20 14h1v3h-1zM14 20h3v1h-3zM20 20h1v1h-1z" /></svg>
           QR Code
         </button>
-        <button class="button button--secondary install-app" id="install-app" type="button" hidden>
+        <button class="button button--secondary install-app" id="install-app" type="button">
           Add to Home Screen
         </button>
       </section>
@@ -178,6 +178,18 @@
         <button class="qr-url" id="copy-url" type="button">Copy card link</button>
         <button class="button button--primary" id="download-qr" type="button">Save Phone Card</button>
         <p class="download-hint">1080 × 1920 PNG · ready for your phone</p>
+      </div>
+    </div>
+
+    <div class="modal" id="install-modal" role="dialog" aria-modal="true" aria-labelledby="install-title" hidden>
+      <button class="modal-backdrop install-backdrop" type="button" aria-label="Close install guide"></button>
+      <div class="install-card">
+        <button class="modal-close install-close" type="button" aria-label="Close install guide">×</button>
+        <img src="assets/b4k-logo.png" alt="" width="74" height="74" />
+        <p class="qr-label">ONE-TAP ACCESS</p>
+        <h2 id="install-title">Add this card to your Home Screen</h2>
+        <ol id="install-steps"></ol>
+        <button class="button button--primary install-done" type="button">Got it</button>
       </div>
     </div>
 

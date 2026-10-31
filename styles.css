@@ -103,6 +103,74 @@ button {
   grid-column: 1 / -1;
 }
 
+.install-app {
+  grid-column: 1 / -1;
+}
+
+.install-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 390px);
+  padding: 28px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.install-card > img {
+  width: 74px;
+  height: 74px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.install-card h2 {
+  margin: 8px 0 18px;
+  color: var(--navy);
+  font-size: 1.65rem;
+}
+
+.install-card ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: install-step;
+  text-align: left;
+}
+
+.install-card li {
+  position: relative;
+  margin: 10px 0;
+  padding: 12px 12px 12px 48px;
+  border-radius: 12px;
+  background: #f3f7fc;
+  color: var(--charcoal);
+  counter-increment: install-step;
+  line-height: 1.4;
+}
+
+.install-card li::before {
+  content: counter(install-step);
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.install-card .button {
+  width: 100%;
+  margin-top: 16px;
+}
+
 .install-help {
   margin: -3px 26px 18px;
   color: #667085;

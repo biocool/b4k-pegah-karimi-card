@@ -1,4 +1,4 @@
-const CACHE = "b4k-pegah-card-v1";
+const CACHE = "b4k-pegah-card-v2";
 const ASSETS = [
   "./", "index.html", "styles.css", "app.js", "manifest.webmanifest",
   "assets/b4k-logo.png", "assets/dr-pegah-karimi.png", "assets/card-qr.png",
